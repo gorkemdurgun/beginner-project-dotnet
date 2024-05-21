@@ -11,7 +11,7 @@ namespace api.Data
         public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         
         {
-
+            
         }
         public DbSet<Models.Stock> Stocks { get; set; }
     }

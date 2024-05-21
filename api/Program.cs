@@ -1,4 +1,5 @@
 using api.Data;
+using api.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
-    options.
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
@@ -50,6 +53,23 @@ app.MapGet("/mylocation", () =>
 })
 .WithName("GetMyLocation")
 .WithOpenApi();
+
+app.MapPost("/testpgsqlPost", async (ApplicationDBContext dbContext) =>
+{
+    var comment = new Comment
+    {
+        Id = 1,
+        Title = "Test",
+        Content = "Test",
+
+
+
+    };
+    dbContext.Add(comment);
+    await dbContext.SaveChangesAsync();
+    return new { Message = "Success" };
+
+});
 
 app.Run();
 
