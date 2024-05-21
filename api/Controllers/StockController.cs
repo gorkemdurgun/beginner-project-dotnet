@@ -34,7 +34,8 @@ namespace api.Controllers
 
             if (stock == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Stock not found" });
+
             }
             else
             {
