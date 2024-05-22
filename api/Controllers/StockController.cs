@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Stock;
+using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,7 +25,8 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetStock()
         {
-            var stock = _context.Stocks.ToList();
+            var stock = _context.Stocks.ToList()
+            .Select(s => s.ToStockDto());
             return Ok(stock);
         }
 
@@ -39,8 +42,20 @@ namespace api.Controllers
             }
             else
             {
-                return Ok(stock);
+                return Ok(stock.ToStockDto());
             }
         }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockCsreateDto)
+        {
+            var stock = stockCsreateDto.ToStockFromCreateDto();
+            _context.Stocks.Add(stock);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetStockById), new { id = stock.Id }, stock.ToStockDto());
+        }
+
+
+
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
+    // Model Tanımlama
+    // Stock Modeli, StockController.cs dosyasında kullanılmak üzere tanımlanmıştır.
+    // Controller dosyasında veritabanı işlemleri yapılırken bu model kullanılacaktır.
     public class Stock
     {
         public int Id { get; set; }
