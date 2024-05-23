@@ -70,7 +70,6 @@ namespace api.Repository
             existingStock.MarketCap = stockRequestDto.MarketCap;
 
             await _context.SaveChangesAsync();
-
             return existingStock;
         }
 
