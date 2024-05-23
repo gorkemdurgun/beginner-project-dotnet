@@ -138,3 +138,7 @@
 /Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/obj/Debug/net8.0/api.sourcelink.json
 /Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Npgsql.dll
 /Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/gorkemdurgun/Development/NetCoreAdventure/beginner-project/api/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
