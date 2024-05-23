@@ -73,5 +73,11 @@ namespace api.Repository
 
             return existingStock;
         }
+
+        public Task<bool> StockExists(int id)
+        {
+            return _context.Stocks.AnyAsync(s => s.Id == id);
+        }
+
     }
 }

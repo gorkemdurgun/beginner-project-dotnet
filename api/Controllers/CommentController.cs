@@ -18,9 +18,11 @@ namespace api.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly ICommentRepository _commentRepository;
+        private readonly IStockRepository _stockRepository;
 
-        public CommentController(ApplicationDBContext context, ICommentRepository commentRepository)
+        public CommentController(ApplicationDBContext context, ICommentRepository commentRepository, IStockRepository stockRepository)
         {
+            _stockRepository = stockRepository;
             _commentRepository = commentRepository;
             _context = context;
         }
@@ -44,14 +46,22 @@ namespace api.Controllers
             return Ok(comment.MapToCommentDto());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCommentRequestDto commentReqDto)
-        {
-            var commentModel = commentReqDto.MapToCommentFromCreateDto();
-            await _commentRepository.CreateAsync(commentModel);
-            return CreatedAtAction(nameof(GetCommentById), new { id = commentModel.Id }, commentModel.MapToCommentDto());
-        }
 
+
+        [HttpPost("{stockId}")]
+        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentDto createCommentDto)
+        {
+            if (!await _stockRepository.StockExists(stockId))
+            {
+                return BadRequest(new { message = "Stock does not exist" });
+            }
+
+            var commentModel = createCommentDto.MapToCommentFromCreateDto(stockId);
+            await _commentRepository.CreateAsync(commentModel);
+            
+            var createdComment = commentModel.MapToCommentDto();
+            return CreatedAtAction(nameof(GetCommentById), new { id = createdComment.Id }, createdComment);
+        }
 
     }
 }
