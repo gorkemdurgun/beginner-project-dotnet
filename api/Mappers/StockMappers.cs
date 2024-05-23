@@ -14,7 +14,7 @@ namespace api.Mappers
     // Bu sayede modelin iç yapısı dışarıya kapalı tutulur ve dışarıdan erişim sağlanmaz.
     public static class StockMappers
     {
-        public static StockDto ToStockDto(this Stock stockModel)
+        public static StockDto MapToStockDto(this Stock stockModel)
         {
             return new StockDto
             {
@@ -28,7 +28,7 @@ namespace api.Mappers
             };
         }
 
-        public static Stock ToStockFromCreateDto(this CreateStockRequestDto stockCreateDto)
+        public static Stock MapToStockFromCreateDto(this CreateStockRequestDto stockCreateDto)
         {
             return new Stock
             {

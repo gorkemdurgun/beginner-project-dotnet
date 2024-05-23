@@ -30,7 +30,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var stocks = await _stockRepository.GetAllAsync();
-            var stockDto = stocks.Select(s => s.ToStockDto());
+            var stockDto = stocks.Select(s => s.MapToStockDto());
             return Ok(stocks);
         }
 
@@ -38,22 +38,20 @@ namespace api.Controllers
         public async Task<IActionResult> GetStockById(int id)
         {
             var stockModel = await _stockRepository.GetByIdAsync(id);
-
             if (stockModel == null)
             {
                 return NotFound(new { message = "Stock not found" });
 
             }
-
-            return Ok(stockModel.ToStockDto());
+            return Ok(stockModel.MapToStockDto());
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockCsreateDto)
         {
-            var stockModel = stockCsreateDto.ToStockFromCreateDto();
+            var stockModel = stockCsreateDto.MapToStockFromCreateDto();
             await _stockRepository.CreateAsync(stockModel);
-            return CreatedAtAction(nameof(GetStockById), new { id = stockModel.Id }, stockModel.ToStockDto());
+            return CreatedAtAction(nameof(GetStockById), new { id = stockModel.Id }, stockModel.MapToStockDto());
         }
 
         [HttpPut("{id}")]
@@ -66,7 +64,7 @@ namespace api.Controllers
                 return NotFound(new { message = "Stock not found" });
             }
 
-            return Ok(stockModel.ToStockDto());
+            return Ok(stockModel.MapToStockDto());
         }
 
 

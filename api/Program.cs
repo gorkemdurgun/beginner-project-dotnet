@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 // IStockRepository ve StockRepository sınıfları arasındaki bağımlılık, AddScoped metodu ile yapıldı.
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
