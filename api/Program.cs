@@ -1,26 +1,27 @@
 using api.Data;
+using api.Interfaces;
 using api.Models;
+using api.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
+// AddDbContext ile Sql Server veritabanına bağlanmak için gerekli ayarlamalar yapıldı.
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// IStockRepository ve StockRepository sınıfları arasındaki bağımlılık, AddScoped metodu ile yapıldı.
+builder.Services.AddScoped<IStockRepository, StockRepository>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Geliştirme ortamında Swagger'ın kullanılabilmesi için gerekli ayarlamalar yapıldı.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
