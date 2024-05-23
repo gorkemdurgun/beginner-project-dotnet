@@ -47,9 +47,9 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockCsreateDto)
+        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockReqDto)
         {
-            var stockModel = stockCsreateDto.MapToStockFromCreateDto();
+            var stockModel = stockReqDto.MapToStockFromCreateDto();
             await _stockRepository.CreateAsync(stockModel);
             return CreatedAtAction(nameof(GetStockById), new { id = stockModel.Id }, stockModel.MapToStockDto());
         }

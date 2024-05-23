@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Mappers;
+using api.Dtos.Comment;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -42,5 +43,15 @@ namespace api.Controllers
             }
             return Ok(comment.MapToCommentDto());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateCommentRequestDto commentReqDto)
+        {
+            var commentModel = commentReqDto.MapToCommentFromCreateDto();
+            await _commentRepository.CreateAsync(commentModel);
+            return CreatedAtAction(nameof(GetCommentById), new { id = commentModel.Id }, commentModel.MapToCommentDto());
+        }
+
+
     }
 }
