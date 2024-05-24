@@ -30,7 +30,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var stocks = await _stockRepository.GetAllAsync();
@@ -43,7 +43,7 @@ namespace api.Controllers
         public async Task<IActionResult> GetStockById(int id)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var stockModel = await _stockRepository.GetByIdAsync(id);
@@ -59,7 +59,7 @@ namespace api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockReqDto)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var stockModel = stockReqDto.MapToStockFromCreateDto();
@@ -72,7 +72,7 @@ namespace api.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto stockUpdateDto)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var stockModel = await _stockRepository.UpdateAsync(id, stockUpdateDto);
@@ -91,7 +91,7 @@ namespace api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var stock = await _stockRepository.DeleteAsync(id);

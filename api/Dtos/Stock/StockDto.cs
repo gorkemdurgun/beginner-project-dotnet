@@ -29,11 +29,11 @@ namespace api.Dtos.Stock
         public decimal Purchase { get; set; }
 
         [Required]
-        [Range(0.001, 100, ErrorMessage = "Last Div cannot be less than 0.001 or more than 100")]
+        [Range(0, 100, ErrorMessage = "Last Div cannot be more than 100")]
         public decimal LastDiv { get; set; }
 
         [Required]
-        [MaxLength(16, ErrorMessage = "Sector cannot be more than 16 characters")]
+        [MaxLength(40, ErrorMessage = "Sector cannot be more than 40 characters")]
         public string Industry { get; set; } = string.Empty;
 
         [Required]
