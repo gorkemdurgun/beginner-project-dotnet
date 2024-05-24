@@ -70,6 +70,9 @@ namespace api.Repository
                 }
             }
 
+            var skipAmount = query.PageLimit * (query.Page - 1);
+            stocks = stocks.Skip(skipAmount).Take(query.PageLimit);
+
             return await stocks.ToListAsync();
         }
 

@@ -11,5 +11,7 @@ namespace api.Helpers
         public string? CompanyName { get; set; } = null;
         public string? SortBy { get; set; } = null;
         public bool IsSortAscending { get; set; } = true;
+        public int Page { get; set; } = 1;
+        public byte PageLimit { get; set; } = 10;
     }
 }
